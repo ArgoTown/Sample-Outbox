@@ -1,24 +1,22 @@
 ﻿namespace Sample.Components;
 
 using MassTransit;
-using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StateMachines;
 
 
 public class RegistrationDbContext :
-    SagaDbContext
+    DbContext
 {
     public RegistrationDbContext(DbContextOptions<RegistrationDbContext> options)
         : base(options)
     {
     }
 
-    protected override IEnumerable<ISagaClassMap> Configurations
+    /*protected override IEnumerable<ISagaClassMap> Configurations
     {
         get { yield return new RegistrationStateMap(); }
-    }
+    }*/
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

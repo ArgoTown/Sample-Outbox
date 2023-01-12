@@ -7,7 +7,7 @@ using Services;
 
 
 public class ValidateRegistrationConsumer :
-    IConsumer<AddEventAttendee>
+    IConsumer<RegistrationSubmitted>
 {
     readonly ILogger<ValidateRegistrationConsumer> _logger;
     readonly IRegistrationValidationService _validationService;
@@ -18,7 +18,7 @@ public class ValidateRegistrationConsumer :
         _validationService = validationService;
     }
 
-    public async Task Consume(ConsumeContext<AddEventAttendee> context)
+    public async Task Consume(ConsumeContext<RegistrationSubmitted> context)
     {
         await _validationService.ValidateRegistration(context.Message.EventId, context.Message.MemberId, context.Message.RegistrationId);
     }

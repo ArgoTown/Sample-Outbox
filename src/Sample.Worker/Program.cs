@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using MassTransit;
 using MassTransit.Metadata;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +7,9 @@ using OpenTelemetry.Trace;
 using Sample.Components;
 using Sample.Components.Consumers;
 using Sample.Components.Services;
-using Sample.Components.StateMachines;
 using Serilog;
 using Serilog.Events;
+using System.Diagnostics;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -71,16 +70,7 @@ var host = Host.CreateDefaultBuilder(args)
 
             x.SetKebabCaseEndpointNameFormatter();
 
-            x.AddConsumer<NotifyRegistrationConsumer>();
-            x.AddConsumer<SendRegistrationEmailConsumer>();
-            x.AddConsumer<AddEventAttendeeConsumer>();
             x.AddConsumer<ValidateRegistrationConsumer, ValidateRegistrationConsumerDefinition>();
-            x.AddSagaStateMachine<RegistrationStateMachine, RegistrationState, RegistrationStateDefinition>()
-                .EntityFrameworkRepository(r =>
-                {
-                    r.ExistingDbContext<RegistrationDbContext>();
-                    r.UsePostgres();
-                });
 
             x.UsingRabbitMq((context, cfg) =>
             {

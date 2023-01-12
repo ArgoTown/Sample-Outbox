@@ -35,7 +35,7 @@ services:
       - JAEGER_SAMPLING_ENDPOINT=http://jaeger:5778/sampling
     build:
       context: ./src
-      dockerfile: Dockerfile.api
+      dockerfile: Sample.Api/Dockerfile.api
     ports:
      - "5000:80"
   service:
@@ -49,4 +49,4 @@ services:
       - JAEGER_SAMPLING_ENDPOINT=http://jaeger:5778/sampling
     build:
       context: ./src
-      dockerfile: Dockerfile.worker
+      dockerfile: Sample.Worker/Dockerfile.worker

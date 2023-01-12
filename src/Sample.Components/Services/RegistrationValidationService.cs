@@ -1,8 +1,6 @@
 namespace Sample.Components.Services;
-
-using Consumers;
 using MassTransit;
-
+using Sample.Components.Contracts;
 
 public class RegistrationValidationService :
     IRegistrationValidationService
@@ -16,6 +14,6 @@ public class RegistrationValidationService :
 
     public async Task ValidateRegistration(string eventId, string memberId, Guid registrationId)
     {
-        await _publishEndpoint.Publish(new RegistrationValidated { RegistrationId = registrationId });
+        await _publishEndpoint.Publish(new RegistrationSubmitted { RegistrationId = registrationId });
     }
 }
